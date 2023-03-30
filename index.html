@@ -4,16 +4,26 @@
    <meta charset="UTF-8">
    <meta http-equiv="X-UA-Compatible" content="IE=edge">
    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+   <meta name="description" content="Aplicacion de seguimiento usando Ipify y Leaflet">
+   <meta name="keywords" content="HTML5, CSS3, Javascript, Leaflet, Ipify">
+   <meta name="author" content="Alexander Avendaño">
+
    <title>TrackMe</title>
+
+   <!-- CSS Leaflet -->
    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.3/dist/leaflet.css"
    integrity="sha256-kLaT2GOSpHechhsozzB+flnD+zUyjE2LlfWPgU04xyI="
    crossorigin=""/>
+   <!-- CSS Styles -->
    <link rel="stylesheet" href="style.css">
+   <!-- CSS Minimap Leaflet -->
    <link rel="stylesheet" href="Leaflet-MiniMap-master/Leaflet-MiniMap-master/dist/Control.MiniMap.min.css">
+   <!-- Favicon -->
+   <link rel="shortcut icon" href="img/favicon.ico" type="image/x-icon">
 </head>
 <body>
    <header id="header">
-      <h1>Bienvenidos a TrackMe, tu aplicación de seguimiento preferida</h1>
+      <h1 class="titulo">Bienvenidos a TrackMe, tu aplicación de seguimiento preferida</h1>
    </header>
    
    <main class="contenedor">
@@ -27,16 +37,16 @@
       </section>
 
       <section class="contenedor-ejemplos">
-         <p>Coordenadas de ejemplo:</p>
+         <h2>Coordenadas de ejemplo:</h2>
          <p>9.3165721, -70.5998961</p>
          <p>9.302005, -70.592128</p>
       </section>
 
       <section class="seeker">
          <form id="form">
-            <label for="coordenadas">Buscar direccion por Coordenadas</label>
-            <input type="text" id="coordenadas" class="buscador" name="coordenadas" placeholder="Ejemplo: 9.302129281961328, -70.59214459735325">
-            <button id="sendCoordenadas">Buscar</button>
+            <label for="coordenadas">Buscar dirección por Coordenadas</label>
+            <input type="text" id="coordenadas" class="buscador" name="coordenadas" placeholder="Ejemplo: 9.302005, -70.592128">
+            <button id="sendCoordenadas" class="btnForm">Buscar</button>
          </form>
       </section>
       <!-- <div class="spinner">
@@ -46,6 +56,10 @@
       <section id="map"></section>
       <section id="info"></section>
    </main>
+
+   <footer>
+      <h3">Copyrigth ©️ 2023 TrackMe | Todos los derechos reservados</h3>
+   </footer>
 
    <script src="https://unpkg.com/leaflet@1.9.3/dist/leaflet.js"
    integrity="sha256-WBkoXOwTeyKclOHuWtc+i2uENFpDZ9YPdf5Hf+D7ewM="

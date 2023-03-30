@@ -82,16 +82,16 @@ document.addEventListener("DOMContentLoaded", async () => {
    await obtenerIp();
    console.log(IP);
 
-   await obtenerGeo(IP)
-   console.log(Geo);
+   // await obtenerGeo(IP)
+   // console.log(Geo);
 
-   await map.flyTo([Geo.location.lat, Geo.location.lng], 18);
+   // await map.flyTo([Geo.location.lat, Geo.location.lng], 18);
 
-   contPopup = await crearPopup(Geo)
-   // console.log(contPopup);
+   // contPopup = await crearPopup(Geo)
+   // // console.log(contPopup);
 
-   marcador.remove()
-   await GenerarMarcador(Geo.location.lat, Geo.location.lng, contPopup)
+   // marcador.remove()
+   // await GenerarMarcador(Geo.location.lat, Geo.location.lng, contPopup)
 });
 
 // Funcion para obtener la IP del usuario
@@ -133,13 +133,13 @@ GenerarMarcador(latitud, longitud, "Venezuela")
 const crearPopup = (location) => {
    contPopup = document.createRange().createContextualFragment(/*html*/
       `<div id="contPopup">
-         <p class="msg-error">Ip: ${location.ip}</p>
-         <p class="msg-error">Domain: ${location.as ? location.as.domain : location.domains[0] }</p>
-         <p class="msg-error">Location</p>
-         <p class="msg-error">Country: ${location.location.country}</p>
-         <p class="msg-error">Region: ${location.location.region}</p>
-         <p class="msg-error">City: ${location.location.city}</p>
-         <p class="msg-error">Coordinates: ${location.location.lat}, ${location.location.lng}</p>
+         <p class="msg-popup">Ip: ${location.ip}</p>
+         <p class="msg-popup">Domain: ${location.as ? location.as.domain : location.domains[0] }</p>
+         <p class="msg-popup">Location</p>
+         <p class="msg-popup">Country: ${location.location.country}</p>
+         <p class="msg-popup">Region: ${location.location.region}</p>
+         <p class="msg-popup">City: ${location.location.city}</p>
+         <p class="msg-popup">Coordinates: ${location.location.lat}, ${location.location.lng}</p>
       </div>`
    )
    return contPopup
@@ -200,7 +200,6 @@ btnIp.addEventListener("click", e => {
    filtrarEjemplos(filtro)
    filtrarBusqueda(filtro)
    IPs = document.getElementById("ip");
-   console.log(IPs)
    sendIp = document.getElementById('sendIp')
 
    // Evento del boton al buscar una ubicacion por IP
@@ -261,7 +260,7 @@ const filtrarEjemplos = (filtro) => {
    while(contenedorEjemplos.firstChild){
       contenedorEjemplos.removeChild(contenedorEjemplos.firstChild)
    }
-   const texto1 = document.createElement("p");
+   const texto1 = document.createElement("h2");
    const texto2 = document.createElement("p");
    const texto3 = document.createElement("p");
    texto1.textContent = `${filtro} de ejemplo:`
@@ -285,7 +284,7 @@ const filtrarBusqueda = (filtro) => {
 
    const label = document.createElement("label");
    label.setAttribute('for', `${oneLowerCase}`)
-   label.textContent = `Buscar direccion por ${filtro}`
+   label.textContent = `Buscar dirección por ${filtro}`
    // console.log(label);
 
    const input = document.createElement("input");
@@ -313,6 +312,7 @@ const filtrarBusqueda = (filtro) => {
          boton.id = 'sendDominio'
          break;
    }
+   boton.classList.add('btnForm')
    boton.textContent = 'Buscar'
 
    while(formulario.firstChild){

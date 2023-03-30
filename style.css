@@ -9,11 +9,20 @@
    border: none;
    color: #000;
 }
+html::-webkit-scrollbar{
+   width: 8px;
+   background: #332FD0;
+   border-radius: 30px;
+}
+html::-webkit-scrollbar-thumb{
+   background: #94DAFF;
+   border-radius: 30px;
+}
 p{
    font-size: 15px;
 }
-h1, h2, h3, h4, h5{
-   padding: 15px 0px;
+h1, h2, h3{
+   padding: 15px 5px;
 }
 body{
    font-family: monospace;
@@ -21,83 +30,180 @@ body{
    color: #fff;
    background: #39B5E0;
 }
+button{
+   padding: 10px 20px;
+   background: #332FD0;
+   color: #fff;
+   border-radius: 15px;
+   font-size: 15px;
+   cursor: pointer;
+   box-shadow: 0 5px 20px rgba(0, 0, 0, 0.3);
+}
 
 /* Header */
 #header{
    background: rgba(0, 0, 0, 0.3);
-   height: 100px;
+   height: 120px;
    display: flex;
    align-items: center;
    justify-content: center;
 }
-
-/* Navbar */
-.filtros{
-   /* background: rgba(0, 0, 0, 0.2); */
-   height: 50px;
-   /* box-shadow: 0 8px 30px rgba(0, 0, 0, 0.3); */
-   display: flex;
-   justify-content: center;
-   align-items: center;
-   width: 100%;
+.titulo{
+   font-size: 20px;
 }
 
 /* Main */
 .contenedor{
    width: 100%;
-   padding: 10px 50px;
+   padding: 0px 20px;
    display: flex;
    flex-direction: column;
    align-items: center;
    gap: 20px;
 }
 
+/* Filtros de busqueda */
+.filtros{
+   display: flex;
+   justify-content: center;
+   flex-direction: column;
+   align-items: center;
+   width: 100%;
+}
+.botones{
+   display: flex;
+   flex-direction: column;
+   gap: 10px;
+}
+
 /* Contenedor de Ejemplos */
 .contenedor-ejemplos{
    display: flex;
-   flex-wrap: wrap;
+   flex-direction: column;
    justify-content: space-evenly;
    width: 100%;
-   padding: 10px 0;
+   gap: 15px;
 }
-.contenedor-ejemplos p{
-   margin-bottom: 10px;
-}
+
 
 /* Buscador */
 .seeker{
+   display: flex;
+   justify-content: center;
    width: 100%;
+   margin: 10px;
 }
 #form{
    width: 100%;
-   display: flex;
-   justify-content: center;
-   align-items: center;
-   gap: 20px;
+   display: grid;
+   justify-items: center;
+   gap: 15px;
 }
 label{
    color: #000;
+   font-weight: 800;
+   font-size: 15px;
 }
 .buscador{
-   width: 400px;
-   background: #c7c7c7;
-   padding: 5px 20px;
+   width: 80%;
+   background: #94DAFF;
+   padding: 10px 20px;
    border-radius: 15px;
-}
-button{
-   padding: 5px 20px;
-   background: #c7c7c7;
-   border-radius: 15px;
-   cursor: pointer;
+   font-size: 15px;
 }
 
 /* Mapa */
 #map{
-   height: 600px;
+   height: 60vh;
    width: 80%;
    border-radius: 10px;
    box-shadow: 0px 2px 40px #000;
 }
+.msg-popup{
+   padding: 0 !important;
+}
+
+@media (min-width: 360px){
+   .botones{
+      flex-direction: row;
+      gap: 10px;
+   }
+}
+
+@media (min-width: 760px){
+   p{
+      font-size: 20px;
+   }
+   h2{
+      font-size: 24px;
+   }
+   h3{
+      font-size: 22px;
+   }
+   button{
+      font-size: 20px;
+   }
+   .titulo{
+      font-size: 25px;
+   }
+   .botones{
+      gap: 60px;
+   }
+   .contenedor-ejemplos{
+      flex-direction: row;
+      align-items: center;
+      gap: 10px;
+   }
+   #form{
+      width: 80%;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 20px;
+   }
+   label{
+      font-size: 22px;
+      grid-column: 1/5;
+   }
+   .buscador{
+      width: 100%;
+      font-size: 20px;
+      grid-row: 2;
+      grid-column: 1/4;
+   }
+   .btnForm{
+      grid-row: 2;
+      grid-column: 4/5;
+   }
+}
+
+@media (min-width: 1200px){
+   p{
+      font-size: 24px;
+   }
+   h2{
+      font-size: 28px;
+   }
+   h3{
+      font-size: 26px;
+   }
+   button{
+      font-size: 24px;
+   }
+   .titulo{
+      font-size: 30px;
+   }
+   #map{
+      height: 80vh;
+   }
+}
+
+
+
+
+
+
+
+
+
 
 
 
