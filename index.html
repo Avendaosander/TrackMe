@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+   <meta charset="UTF-8">
+   <meta http-equiv="X-UA-Compatible" content="IE=edge">
+   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+   <title>TrackMe</title>
+   <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.3/dist/leaflet.css"
+   integrity="sha256-kLaT2GOSpHechhsozzB+flnD+zUyjE2LlfWPgU04xyI="
+   crossorigin=""/>
+   <link rel="stylesheet" href="style.css">
+   <link rel="stylesheet" href="Leaflet-MiniMap-master/Leaflet-MiniMap-master/dist/Control.MiniMap.min.css">
+</head>
+<body>
+   <header id="header">
+      <h1>Bienvenidos a TrackMe, tu aplicación de seguimiento preferida</h1>
+   </header>
+   
+   <main class="contenedor">
+      <section class="filtros">
+         <h2>Buscar por:</h2>
+         <div class="botones">
+            <button id="btnCoordinate" class="btnFilter">Coordenadas</button>
+            <button id="btnIp" class="btnFilter">Ip</button>
+            <button id="btnDomain" class="btnFilter">Dominio</button>
+         </div>
+      </section>
+
+      <section class="contenedor-ejemplos">
+         <p>Coordenadas de ejemplo:</p>
+         <p>9.3165721, -70.5998961</p>
+         <p>9.302005, -70.592128</p>
+      </section>
+
+      <section class="seeker">
+         <form id="form">
+            <label for="coordenadas">Buscar direccion por Coordenadas</label>
+            <input type="text" id="coordenadas" class="buscador" name="coordenadas" placeholder="Ejemplo: 9.302129281961328, -70.59214459735325">
+            <button id="sendCoordenadas">Buscar</button>
+         </form>
+      </section>
+      <!-- <div class="spinner">
+         <div class="double-bounce1"></div>
+         <div class="double-bounce2"></div>
+       </div> -->
+      <section id="map"></section>
+      <section id="info"></section>
+   </main>
+
+   <script src="https://unpkg.com/leaflet@1.9.3/dist/leaflet.js"
+   integrity="sha256-WBkoXOwTeyKclOHuWtc+i2uENFpDZ9YPdf5Hf+D7ewM="
+   crossorigin=""></script>
+   <script src="Leaflet-MiniMap-master/Leaflet-MiniMap-master/dist/Control.MiniMap.min.js"></script>
+   <script src="index.js"></script>
+</body>
+</html>
