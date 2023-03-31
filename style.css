@@ -39,6 +39,36 @@ button{
    cursor: pointer;
    box-shadow: 0 5px 20px rgba(0, 0, 0, 0.3);
 }
+button:hover{
+   animation: zoom .5s linear infinite alternate;
+}
+
+@keyframes aparecer {
+   from {opacity: 0;}   
+   to {opacity: 1;}
+}
+
+@keyframes zoom {
+   to{
+      transform: scale(1.1);
+      box-shadow: 0px 0px 10px #332FD0;
+   }
+}
+
+@keyframes RigthToLeft {
+   from {transform: translateX(50px); opacity: 0;}   
+   to {transform: translateX(0); opacity: 1;}
+}
+
+@keyframes BottomToUp {
+   0% {transform: translateY(30px); opacity: 0;}   
+   100% {transform: translateX(0); opacity: 1;}
+}
+
+@keyframes ShowFromMiddle {
+   from {width: 0%;}   
+   to {width: 100%;}
+}
 
 /* Header */
 #header{
@@ -69,6 +99,7 @@ button{
    flex-direction: column;
    align-items: center;
    width: 100%;
+   margin-bottom: 10px;
 }
 .botones{
    display: flex;
@@ -79,12 +110,19 @@ button{
 /* Contenedor de Ejemplos */
 .contenedor-ejemplos{
    display: flex;
+   background: rgba(0, 0, 0, 0.1);
    flex-direction: column;
    justify-content: space-evenly;
    width: 100%;
+   border-radius: 25px;
+   padding-bottom: 10px;
    gap: 15px;
+   animation: aparecer 1s ease-in-out ;
 }
-
+.contenedor-ejemplos h2,
+.contenedor-ejemplos p{
+   animation: RigthToLeft .9s ease-in-out;
+}
 
 /* Buscador */
 .seeker{
@@ -103,6 +141,7 @@ label{
    color: #000;
    font-weight: 800;
    font-size: 15px;
+   animation: BottomToUp 1.1s ease-in-out;
 }
 .buscador{
    width: 80%;
@@ -110,6 +149,10 @@ label{
    padding: 10px 20px;
    border-radius: 15px;
    font-size: 15px;
+   animation: ShowFromMiddle 3s ease-out;
+}
+.buscador:focus{
+   border: 2px solid #332FD0;
 }
 
 /* Mapa */
@@ -120,7 +163,7 @@ label{
    box-shadow: 0px 2px 40px #000;
 }
 .msg-popup{
-   padding: 0 !important;
+   font-size: 15px;
 }
 
 @media (min-width: 360px){
@@ -152,6 +195,8 @@ label{
    .contenedor-ejemplos{
       flex-direction: row;
       align-items: center;
+      border-radius: 40px;
+      padding-bottom: 0;
       gap: 10px;
    }
    #form{
@@ -190,6 +235,10 @@ label{
    }
    .titulo{
       font-size: 30px;
+   }
+   .contenedor-ejemplos{
+      border-radius: 50%;
+      padding-bottom: 0;
    }
    #map{
       height: 80vh;

@@ -82,16 +82,16 @@ document.addEventListener("DOMContentLoaded", async () => {
    await obtenerIp();
    console.log(IP);
 
-   // await obtenerGeo(IP)
-   // console.log(Geo);
+   await obtenerGeo(IP)
+   console.log(Geo);
 
-   // await map.flyTo([Geo.location.lat, Geo.location.lng], 18);
+   await map.flyTo([Geo.location.lat, Geo.location.lng], 18);
 
-   // contPopup = await crearPopup(Geo)
-   // // console.log(contPopup);
+   contPopup = await crearPopup(Geo)
+   // console.log(contPopup);
 
-   // marcador.remove()
-   // await GenerarMarcador(Geo.location.lat, Geo.location.lng, contPopup)
+   marcador.remove()
+   await GenerarMarcador(Geo.location.lat, Geo.location.lng, contPopup)
 });
 
 // Funcion para obtener la IP del usuario
