@@ -5,7 +5,7 @@ const URL_API_IP = "https://api.ipify.org/?format=json";
 
 // APIs de https://geo.ipify.org/docs
 const URL_API_GEO ="https://geo.ipify.org/api/v2/country,city,vpn?apiKey=at_tJNUdet4sUYU6WfaWQqCyHi0UYsGG&ipAddress=";
-const URL_API_GEO_DAMAIN ="https://geo.ipify.org/api/v2/country,city,vpn?apiKey=at_tJNUdet4sUYU6WfaWQqCyHi0UYsGG&domain=";
+const URL_API_GEO_DOMAIN ="https://geo.ipify.org/api/v2/country,city,vpn?apiKey=at_tJNUdet4sUYU6WfaWQqCyHi0UYsGG&domain=";
 
 // Aqui se guarda la IP del usuario
 let IP = "";
@@ -62,28 +62,20 @@ let formulario = document.getElementById("form");
 // Input de coordenadas
 let coordenadas = document.getElementById("coordenadas");
 
-// Input de IPs
-let IPs;
-
-// Input de dominio
-let dominio;
-
 // Boton para buscar direccion por Coordenadas
 let sendCoordenadas = document.getElementById("sendCoordenadas");
-
-// Boton para buscar direccion por Ip
-let sendIp;
-
-// Boton para buscar direccion por Dominio
-let sendDominio;
 
 // Al cargar la pagina se obtiene la IP y la Geolocalizacion del usuario
 document.addEventListener("DOMContentLoaded", async () => {
    await obtenerIp();
-   console.log(IP);
-
+   if (!IP) return alert('La peticion no se pudo completar, revise su conexión a internet y vuelva a intentarlo');
+   // console.log(IP);
+   
    await obtenerGeo(IP)
-   console.log(Geo);
+   if (!Geo) return alert('La peticion no se pudo completar, revise su conexión a internet y vuelva a intentarlo')
+   // console.log(Geo);
+
+   document.getElementById("loader").classList.toggle('loader-off')
 
    await map.flyTo([Geo.location.lat, Geo.location.lng], 18);
 
@@ -96,23 +88,35 @@ document.addEventListener("DOMContentLoaded", async () => {
 
 // Funcion para obtener la IP del usuario
 const obtenerIp = async () => {
-   const respuestaJson = await fetch(URL_API_IP);
-   const respuesta = await respuestaJson.json();
-   IP = respuesta.ip;
+   try {
+      await fetch(URL_API_IP)
+         .then(res => res.json())
+         .then(res => IP = res.ip)
+   } catch (error) {
+      console.error(error.message)
+   }
 };
 
 // Funcion para obtener la Geolocalizacion del usuario por IP
 const obtenerGeo = async (ip) => {
-   const respuestaJson = await fetch(`${URL_API_GEO}${ip}`);
-   const respuesta = await respuestaJson.json();
-   Geo = respuesta;
+   try {
+      await fetch(`${URL_API_GEO}${ip}`)
+         .then(res => res.json())
+         .then(res => Geo = res)
+   } catch (error) {
+      console.error(error.message)
+   }
 };
 
 // Funcion para obtener la Geolocalizacion del usuario por dominio
 const obtenerGeoDominio = async (domain) => {
-   const respuestaJson = await fetch(`${URL_API_GEO_DAMAIN}${domain}`);
-   const respuesta = await respuestaJson.json();
-   Geo = respuesta;
+   try {
+      await fetch(`${URL_API_GEO_DOMAIN}${domain}`)
+         .then(res => res.json())
+         .then(res => Geo = res)
+   } catch (error) {
+      console.error(error.message)
+   }
 };
 
 // Funcion para asignar un marcador en el mapa
@@ -134,7 +138,7 @@ const crearPopup = (location) => {
    contPopup = document.createRange().createContextualFragment(/*html*/
       `<div id="contPopup">
          <p class="msg-popup">Ip: ${location.ip}</p>
-         <p class="msg-popup">Domain: ${location.as ? location.as.domain : location.domains[0] }</p>
+         <p class="msg-popup">Domain: ${location.as ? location.as.domain : location.domains[0]}</p>
          <p class="msg-popup">Location</p>
          <p class="msg-popup">Country: ${location.location.country}</p>
          <p class="msg-popup">Region: ${location.location.region}</p>
@@ -187,7 +191,6 @@ btnCoordinate.addEventListener("click", e => {
          marcador.remove()
          contPopup = crearPopup(Geo)
          GenerarMarcador(lat, lng)
-         console.log(marcador);
       } else {
          return console.warn("No es una coordenada valida");
       }
@@ -199,24 +202,24 @@ btnIp.addEventListener("click", e => {
    const filtro = btnIp.textContent
    filtrarEjemplos(filtro)
    filtrarBusqueda(filtro)
-   IPs = document.getElementById("ip");
-   sendIp = document.getElementById('sendIp')
+   const IPs = document.getElementById("ip");
+   const sendIp = document.getElementById('sendIp')
 
    // Evento del boton al buscar una ubicacion por IP
    sendIp.addEventListener("click", async (e) => {
       e.preventDefault();
+      Geo = ''
       const regex = /^(?:(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.){3}(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)$/;
       const newIP = IPs.value.trim()
       if (regex.test(newIP)) {
          await obtenerGeo(newIP)
-         console.log(Geo);
+         if (!Geo) return alert('La peticion no se pudo completar, revise su conexión a internet y vuelva a intentarlo')
          const lat = Geo.location.lat
          const lng = Geo.location.lng
          map.flyTo([lat, lng], 18);
          marcador.remove()
          contPopup = crearPopup(Geo)
          GenerarMarcador(lat, lng, contPopup)
-         // console.log(marcador);
       } else {
          return console.warn("No es una IP valida");
       }
@@ -228,24 +231,24 @@ btnDomain.addEventListener("click", e => {
    const filtro = btnDomain.textContent
    filtrarEjemplos(filtro)
    filtrarBusqueda(filtro)
-   dominio = document.getElementById("dominio");
-   sendDominio = document.getElementById('sendDominio')
+   const dominio = document.getElementById("dominio");
+   const sendDominio = document.getElementById('sendDominio')
 
    // Evento del boton al buscar una ubicacion por Dominio
    sendDominio.addEventListener("click", async (e) => {
       e.preventDefault();
+      Geo = ''
       const regex = /^[a-zA-Z0-9]+([\-\.]{1}[a-zA-Z0-9]+)*\.[a-zA-Z]{2,}$/;
       const newDomain = dominio.value.trim()
       if (regex.test(newDomain)) {
          await obtenerGeoDominio(newDomain)
-         console.log(Geo);
+         if (!Geo) return alert('La peticion no se pudo completar, revise su conexión a internet y vuelva a intentarlo')
          const lat = Geo.location.lat
          const lng = Geo.location.lng
          map.flyTo([lat, lng], 18);
          marcador.remove()
          contPopup = crearPopup(Geo)
          GenerarMarcador(lat, lng, contPopup)
-         // console.log(marcador);
       } else {
          return console.warn("No es dominio valido");
       }
@@ -285,7 +288,6 @@ const filtrarBusqueda = (filtro) => {
    const label = document.createElement("label");
    label.setAttribute('for', `${oneLowerCase}`)
    label.textContent = `Buscar dirección por ${filtro}`
-   // console.log(label);
 
    const input = document.createElement("input");
    input.type = 'text'
@@ -337,7 +339,6 @@ sendCoordenadas.addEventListener("click", async (e) => {
       map.flyTo(coordinates, 18);
       marcador.remove()
       GenerarMarcador(lat, lng)
-      console.log(marcador);
    } else {
       return console.warn("No es una coordenada valida");
    }
