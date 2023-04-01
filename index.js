@@ -65,6 +65,12 @@ let coordenadas = document.getElementById("coordenadas");
 // Boton para buscar direccion por Coordenadas
 let sendCoordenadas = document.getElementById("sendCoordenadas");
 
+// Aqui se guarda la etiqueta body
+const body = document.querySelector("body")
+
+// Boton para cambiar el tema
+const buttomTheme = document.getElementById('switch-theme')
+
 // Al cargar la pagina se obtiene la IP y la Geolocalizacion del usuario
 document.addEventListener("DOMContentLoaded", async () => {
    await obtenerIp();
@@ -343,3 +349,37 @@ sendCoordenadas.addEventListener("click", async (e) => {
       return console.warn("No es una coordenada valida");
    }
 });
+
+// Evento para cambiar entre Dark Mode y Ligth Mode
+buttomTheme.addEventListener('click', e => {
+   body.classList.toggle('darkmode')
+   if (body.classList.contains('darkmode')) {
+      buttomTheme.removeChild(buttomTheme.firstChild)
+      addLigthMode()
+   } else{
+      buttomTheme.removeChild(buttomTheme.firstChild)
+      addDarkMode()
+   }
+})
+
+// Funcion para crear el boton para Dark Mode
+const addDarkMode = () => {
+   const iconDark = document.createElement('i')
+   iconDark.classList.add('fa-solid', 'fa-moon')
+   buttomTheme.appendChild(iconDark)
+}
+
+// Funcion para crear el boton para Ligth Mode
+const addLigthMode = () => {
+   const iconLight = document.createElement('i')
+   iconLight.classList.add('fa-sharp', 'fa-solid', 'fa-sun')
+   buttomTheme.appendChild(iconLight)
+}
+
+// Inicia el tema de la pagina segun la preferencia del sistema del usuario 
+if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) {
+   body.classList.add('darkmode')
+   addLigthMode()
+} else{
+   addDarkMode()
+}
