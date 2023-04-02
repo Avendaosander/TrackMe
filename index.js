@@ -83,7 +83,7 @@ document.addEventListener("DOMContentLoaded", async () => {
 
    document.getElementById("loader").classList.toggle('loader-off')
 
-   await map.flyTo([Geo.location.lat, Geo.location.lng], 18);
+   map.flyTo([Geo.location.lat, Geo.location.lng], 18);
 
    contPopup = await crearPopup(Geo)
    // console.log(contPopup);
