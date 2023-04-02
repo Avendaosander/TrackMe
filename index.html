@@ -36,30 +36,28 @@
       </section>
       <section class="filtros">
          <h2>Buscar por:</h2>
-         <div class="botones">
-            <button class="btn" id="btnCoordinate" class="btnFilter">Coordenadas</button>
+         <div>
             <button class="btn" id="btnIp" class="btnFilter">Ip</button>
             <button class="btn" id="btnDomain" class="btnFilter">Dominio</button>
          </div>
       </section>
 
       <section class="contenedor-ejemplos">
-         <h2>Coordenadas de ejemplo:</h2>
-         <p>9.3165721, -70.5998961</p>
-         <p>9.302005, -70.592128</p>
+         <h2>Ip de ejemplo:</h2>
+         <p>200.8.113.234</p>
+         <p>192.168.0.1</p>
       </section>
 
       <section class="seeker">
          <form id="form">
-            <label for="coordenadas">Buscar dirección por Coordenadas</label>
-            <input type="text" id="coordenadas" class="buscador" name="coordenadas" placeholder="Ejemplo: 9.302005, -70.592128" autofocus>
-            <button class="btn btnForm" id="sendCoordenadas">Buscar</button>
+            <label for="ip">Buscar dirección por Ip</label>
+            <input type="text" id="ip" class="buscador" name="ip" placeholder="Ejemplo: 200.8.113.234" autofocus>
+            <button class="btn btnForm" id="sendIp">Buscar</button>
          </form>
       </section>
       <section id="map">
          <div class="lds-ellipsis loader" id="loader"><div></div><div></div><div></div><div></div></div>
       </section>
-      <section id="info"></section>
    </main>
 
    <footer>

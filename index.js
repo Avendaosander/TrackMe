@@ -31,9 +31,6 @@ let map = L.map("map").setView([latitud, longitud], 6);
 // Agregar una capa de openstreetmap
 L.tileLayer("https://tile.openstreetmap.org/{z}/{x}/{y}.png", {}).addTo(map);
 
-// Boton para filtrar busqueda por Coordenadas
-const btnCoordinate = document.getElementById("btnCoordinate");
-
 // Boton para filtrar busqueda por Ip
 const btnIp = document.getElementById("btnIp");
 
@@ -42,10 +39,6 @@ const btnDomain = document.getElementById("btnDomain");
 
 // Objeto con los ejemplos para cada tipo de busqueda
 const ejemplos = {
-   coordenadas: {
-      primero: '9.3165721, -70.5998961',
-      segundo: '9.302005, -70.592128',
-   },
    ip: {
       primero: '200.8.113.234',
       segundo: '192.168.0.1',
@@ -63,10 +56,10 @@ let infoUser = {}
 let formulario = document.getElementById("form");
 
 // Input de coordenadas
-let coordenadas = document.getElementById("coordenadas");
+let IPs = document.getElementById("ip");
 
-// Boton para buscar direccion por Coordenadas
-let sendCoordenadas = document.getElementById("sendCoordenadas");
+// Boton para buscar direccion por Ip
+let sendIp = document.getElementById('sendIp')
 
 // Boton para mostrar los datos de la busqueda
 let showData = document.getElementById('showData')
@@ -79,6 +72,7 @@ const buttomTheme = document.getElementById('switch-theme')
 
 // Al cargar la pagina se obtiene la IP y la Geolocalizacion del usuario
 document.addEventListener("DOMContentLoaded", async () => {
+   btnIp.style.display = 'none'
    await obtenerIp();
    if (!IP) return alertError();
    // console.log(IP);
@@ -150,22 +144,41 @@ GenerarMarcador(latitud, longitud, "Venezuela")
 const crearPopup = (location) => {
    infoUser = {
       ip: location.ip,
-      domain: location.as ? location.as.domain : location.domains[0],
       country: location.location.country,
       region: location.location.region,
       city: location.location.city,
+      timezone: location.location.timezone,
+      geonameId: location.location.geonameId,
       lat: location.location.lat,
-      lon: location.location.lng
+      lon: location.location.lng,
+      asn: location.as.asn,
+      name: location.as.name,
+      route: location.as.route,
+      domain: location.as.domain,
+      type: location.as.type,
+      isp: location.isp,
+      proxy: location.proxy.proxy,
+      vpn: location.proxy.vpn,
    }
    contPopup = document.createRange().createContextualFragment(/*html*/
       `<div id="contPopup">
          <p class="msg-popup">Ip: ${infoUser.ip}</p>
-         <p class="msg-popup">Domain: ${infoUser.domain}</p>
          <p class="msg-popup">🗺️Location⬇️</p>
          <p class="msg-popup">Country: ${infoUser.country}</p>
          <p class="msg-popup">Region: ${infoUser.region}</p>
          <p class="msg-popup">City: ${infoUser.city}</p>
          <p class="msg-popup">Coordinates: ${infoUser.lat}, ${infoUser.lon}</p>
+         <p class="msg-popup">Timezone: ${infoUser.timezone}</p>
+         <p class="msg-popup">GeonameId: ${infoUser.geonameId}</p>
+         <p class="msg-popup">🌐As⬇️</p>
+         <p class="msg-popup">Asn: ${infoUser.asn}</p>
+         <p class="msg-popup">Name: ${infoUser.name}</p>
+         <p class="msg-popup">Route: ${infoUser.route}</p>
+         <p class="msg-popup">Domain: ${infoUser.domain}</p>
+         <p class="msg-popup">Type: ${infoUser.type}</p>
+         <p class="msg-popup">🖥️Isp➡️: ${infoUser.isp}</p>
+         <p class="msg-popup">🌐Proxy➡️: ${infoUser.proxy}</p>
+         <p class="msg-popup">🌐VPN➡️: ${infoUser.vpn}</p>
       </div>`
    )
    return contPopup
@@ -193,41 +206,15 @@ let miniMap = new L.Control.MiniMap(osm2, {
    position: "bottomleft",
 }).addTo(map);
 
-// Evento para filtrar la busqueda por coordenadas
-btnCoordinate.addEventListener("click", e => {
-   const filtro = btnCoordinate.textContent
-   filtrarEjemplos(filtro)
-   filtrarBusqueda(filtro)
-   coordenadas = document.getElementById("coordenadas");
-   sendCoordenadas = document.getElementById('sendCoordenadas')
-
-   // Evento del boton al buscar una ubicacion por Coordenadas
-   sendCoordenadas.addEventListener("click", async (e) => {
-      e.preventDefault();
-      const regex = /^[-+]?([1-8]?\d(\.\d+)?|90(\.0+)?)\s*[,]\s*[-+]?(180(\.0+)?|((1[0-7]\d)|([1-9]?\d))(\.\d+)?)$/;
-      if (regex.test(coordenadas.value.trim())) {
-         infoUser = {}
-         formulario.lastChild.remove()
-         showData = document.getElementById('showData')
-         let coordinates = coordenadas.value.split(",");
-         const lat = coordinates[0]
-         const lng = coordinates[1]
-         map.flyTo(coordinates, 18);
-         marcador.remove()
-         GenerarMarcador(lat, lng)
-      } else {
-         return Swal.fire('Un momento!', 'Las coordenadas ingresadas no son validas', 'warning')
-      }
-   });
-})
-
 // Evento para filtrar la busqueda por IP
 btnIp.addEventListener("click", e => {
+   btnIp.style.display = 'none'
+   btnDomain.style.display = 'block'
    const filtro = btnIp.textContent
    filtrarEjemplos(filtro)
    filtrarBusqueda(filtro)
-   const IPs = document.getElementById("ip");
-   const sendIp = document.getElementById('sendIp')
+   IPs = document.getElementById("ip");
+   sendIp = document.getElementById('sendIp')
 
    // Evento del boton al buscar una ubicacion por IP
    sendIp.addEventListener("click", async (e) => {
@@ -254,6 +241,8 @@ btnIp.addEventListener("click", e => {
 
 // Evento para filtrar la busqueda por Dominio
 btnDomain.addEventListener("click", e => {
+   btnIp.style.display = 'block'
+   btnDomain.style.display = 'none'
    const filtro = btnDomain.textContent
    filtrarEjemplos(filtro)
    filtrarBusqueda(filtro)
@@ -358,22 +347,25 @@ const filtrarBusqueda = (filtro) => {
    coordenadas = document.getElementById("coordenadas");
 }
 
-// Evento del boton inicial al buscar una ubicacion por Coordenadas
-sendCoordenadas.addEventListener("click", async (e) => {
+// Evento del boton al buscar una ubicacion por IP
+sendIp.addEventListener("click", async (e) => {
    e.preventDefault();
-   const regex = /^[-+]?([1-8]?\d(\.\d+)?|90(\.0+)?)\s*[,]\s*[-+]?(180(\.0+)?|((1[0-7]\d)|([1-9]?\d))(\.\d+)?)$/;
-   if (regex.test(coordenadas.value.trim())) {
+   const regex = /^(?:(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.){3}(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)$/;
+   const newIP = IPs.value.trim()
+   if (regex.test(newIP)) {
       infoUser = {}
-      formulario.lastChild.remove()
-      showData = document.getElementById('showData')
-      let coordinates = coordenadas.value.split(",");
-      const lat = coordinates[0]
-      const lng = coordinates[1]
-      map.flyTo(coordinates, 18);
+      Geo = ''
+      if(showData === null) buttonShowData()
+      await obtenerGeo(newIP)
+      if (!Geo) return alertError()
+      const lat = Geo.location.lat
+      const lng = Geo.location.lng
+      map.flyTo([lat, lng], 18);
       marcador.remove()
-      GenerarMarcador(lat, lng)
+      contPopup = crearPopup(Geo)
+      GenerarMarcador(lat, lng, contPopup)
    } else {
-      return Swal.fire('Un momento!', 'Las coordenadas ingresadas no son validas', 'warning')
+      return Swal.fire('Un momento!', 'La IP ingresada no es valida', 'warning')
    }
 });
 
@@ -438,12 +430,22 @@ function showAlert(data) {
          `
             <div>
                <p>Ip: ${data.ip}</p>
-               <p>Domain: ${data.domain}</p>
                <p>🗺️Location⬇️</p>
                <p>Country: ${data.country}</p>
                <p>Region: ${data.region}</p>
                <p>City: ${data.city}</p>
                <p>Coordinates: ${data.lat}, ${data.lon}</p>
+               <p>Timezone: ${data.timezone}</p>
+               <p>GeonameId: ${data.geonameId}</p>
+               <p>🌐As⬇️</p>
+               <p>Asn: ${data.asn}</p>
+               <p>Name: ${data.name}</p>
+               <p>Route: ${data.route}</p>
+               <p>Domain: ${data.domain}</p>
+               <p>Type: ${data.type}</p>
+               <p>🖥️Isp➡️: ${data.isp}</p>
+               <p>🌐Proxy➡️: ${data.proxy}</p>
+               <p>🌐VPN➡️: ${data.vpn}</p>
             </div>
          `,
       showCloseButton: true,
