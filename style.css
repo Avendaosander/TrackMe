@@ -311,7 +311,6 @@ label {
 .msg-popup {
    font-size: 15px;
 }
-
 .darkmode footer{
    color: var(--darkDatelles);
 }
@@ -498,5 +497,8 @@ label {
    }
    #map {
       height: 80vh;
+   }
+   .msg-alert {
+      font-size: 20px;
    }
 }

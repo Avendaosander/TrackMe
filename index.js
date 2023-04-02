@@ -55,7 +55,7 @@ let infoUser = {}
 // Formulario
 let formulario = document.getElementById("form");
 
-// Input de coordenadas
+// Input de Ips
 let IPs = document.getElementById("ip");
 
 // Boton para buscar direccion por Ip
@@ -274,7 +274,7 @@ btnDomain.addEventListener("click", e => {
 
 // Funcion para filtrar los ejemplos por un filtro
 const filtrarEjemplos = (filtro) => {
-   const oneLowerCase = filtro[0].toLowerCase() + filtro.substring(1);
+   const oneLowerCase = filtro.toLowerCase()
    const contenedorEjemplos = document.querySelector('.contenedor-ejemplos')
    
    while(contenedorEjemplos.firstChild){
@@ -300,7 +300,7 @@ const filtrarEjemplos = (filtro) => {
 
 // Funcion para filtrar el formulario por un filtro
 const filtrarBusqueda = (filtro) => {
-   const oneLowerCase = filtro[0].toLowerCase() + filtro.substring(1);
+   const oneLowerCase = filtro.toLowerCase()
 
    const label = document.createElement("label");
    label.setAttribute('for', `${oneLowerCase}`)
@@ -321,9 +321,6 @@ const filtrarBusqueda = (filtro) => {
    const boton = document.createElement("button");
 
    switch (filtro) {
-      case 'Coordenadas':
-         boton.id = 'sendCoordenadas'
-         break;
       case 'Ip':
          boton.id = 'sendIp'
          break;
@@ -343,8 +340,6 @@ const filtrarBusqueda = (filtro) => {
    formulario.appendChild(boton);
 
    if (infoUser.ip) buttonShowData()
-
-   coordenadas = document.getElementById("coordenadas");
 }
 
 // Evento del boton al buscar una ubicacion por IP
@@ -429,23 +424,23 @@ function showAlert(data) {
       html: 
          `
             <div>
-               <p>Ip: ${data.ip}</p>
-               <p>🗺️Location⬇️</p>
-               <p>Country: ${data.country}</p>
-               <p>Region: ${data.region}</p>
-               <p>City: ${data.city}</p>
-               <p>Coordinates: ${data.lat}, ${data.lon}</p>
-               <p>Timezone: ${data.timezone}</p>
-               <p>GeonameId: ${data.geonameId}</p>
-               <p>🌐As⬇️</p>
-               <p>Asn: ${data.asn}</p>
-               <p>Name: ${data.name}</p>
-               <p>Route: ${data.route}</p>
-               <p>Domain: ${data.domain}</p>
-               <p>Type: ${data.type}</p>
-               <p>🖥️Isp➡️: ${data.isp}</p>
-               <p>🌐Proxy➡️: ${data.proxy}</p>
-               <p>🌐VPN➡️: ${data.vpn}</p>
+               <p class="msg-alert">Ip: ${data.ip}</p>
+               <p class="msg-alert">🗺️Location⬇️</p>
+               <p class="msg-alert">Country: ${data.country}</p>
+               <p class="msg-alert">Region: ${data.region}</p>
+               <p class="msg-alert">City: ${data.city}</p>
+               <p class="msg-alert">Coordinates: ${data.lat}, ${data.lon}</p>
+               <p class="msg-alert">Timezone: ${data.timezone}</p>
+               <p class="msg-alert">GeonameId: ${data.geonameId}</p>
+               <p class="msg-alert">🌐As⬇️</p>
+               <p class="msg-alert">Asn: ${data.asn}</p>
+               <p class="msg-alert">Name: ${data.name}</p>
+               <p class="msg-alert">Route: ${data.route}</p>
+               <p class="msg-alert">Domain: ${data.domain}</p>
+               <p class="msg-alert">Type: ${data.type}</p>
+               <p class="msg-alert">🖥️Isp➡️: ${data.isp}</p>
+               <p class="msg-alert">🌐Proxy➡️: ${data.proxy}</p>
+               <p class="msg-alert">🌐VPN➡️: ${data.vpn}</p>
             </div>
          `,
       showCloseButton: true,
