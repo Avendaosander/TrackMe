@@ -397,6 +397,29 @@ label {
    clip-path: circle(0.0% at 100% 0);
 }
 
+/* Boton para ir a Github */
+#toGithub{
+   position: fixed;
+   bottom: 20px;
+   right: 20px;
+   width: 50px;
+   height: 50px;
+   display: flex;
+   justify-content: center;
+   align-items: center;
+   font-size: 25px;
+   background: var(--darkSecundario);
+   z-index: 10010;
+}
+
+.pt-2{
+   padding-top: 2px;
+}
+
+.darkmode #toGithub{
+   background: var(--darkDatelles);
+}
+
 @media (min-width: 760px) {
    p {
       font-size: 20px;
