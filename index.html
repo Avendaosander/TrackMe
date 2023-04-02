@@ -16,10 +16,12 @@
    crossorigin=""/>
    <!-- FontAwesome -->
    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
-   <!-- CSS Styles -->
-   <link rel="stylesheet" href="style.css">
    <!-- CSS Minimap Leaflet -->
    <link rel="stylesheet" href="Leaflet-MiniMap-master/Leaflet-MiniMap-master/dist/Control.MiniMap.min.css">
+   <!-- Sweet Alert -->
+   <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+   <!-- CSS Styles -->
+   <link rel="stylesheet" href="style.css">
    <!-- Favicon -->
    <link rel="shortcut icon" href="img/favicon.ico" type="image/x-icon">
 </head>
@@ -30,14 +32,14 @@
    
    <main class="contenedor">
       <section class="btn-theme">
-         <button id="switch-theme"></button>
+         <button class="btn" id="switch-theme"></button>
       </section>
       <section class="filtros">
          <h2>Buscar por:</h2>
          <div class="botones">
-            <button id="btnCoordinate" class="btnFilter">Coordenadas</button>
-            <button id="btnIp" class="btnFilter">Ip</button>
-            <button id="btnDomain" class="btnFilter">Dominio</button>
+            <button class="btn" id="btnCoordinate" class="btnFilter">Coordenadas</button>
+            <button class="btn" id="btnIp" class="btnFilter">Ip</button>
+            <button class="btn" id="btnDomain" class="btnFilter">Dominio</button>
          </div>
       </section>
 
@@ -51,7 +53,7 @@
          <form id="form">
             <label for="coordenadas">Buscar dirección por Coordenadas</label>
             <input type="text" id="coordenadas" class="buscador" name="coordenadas" placeholder="Ejemplo: 9.302005, -70.592128" autofocus>
-            <button id="sendCoordenadas" class="btnForm">Buscar</button>
+            <button class="btn btnForm" id="sendCoordenadas">Buscar</button>
          </form>
       </section>
       <section id="map">

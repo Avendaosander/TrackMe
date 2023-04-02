@@ -47,7 +47,7 @@ body.darkmode::-webkit-scrollbar {
 body.darkmode::-webkit-scrollbar-thumb {
    background: var(--darkDatelles);
 }
-button {
+.btn {
    padding: 10px 20px;
    background: var(--datalles);
    border-radius: 15px;
@@ -56,10 +56,10 @@ button {
    cursor: pointer;
    box-shadow: 0 5px 20px rgba(0, 0, 0, 0.3);
 }
-button:hover {
+.btn:hover {
    animation: zoom 0.5s linear infinite alternate;
 }
-.darkmode button {
+.darkmode .btn {
    background: var(--darkDatelles);
    color: #000;
 }
@@ -329,7 +329,7 @@ label {
    h3 {
       font-size: 22px;
    }
-   button {
+   .btn {
       font-size: 20px;
    }
    .titulo {
@@ -362,7 +362,11 @@ label {
    }
    .btnForm {
       grid-row: 2;
-      grid-column: 4/5;
+      grid-column: 4;
+   }
+   .btn-data {
+      grid-row: 2;
+      grid-column: 5;
    }
 }
 
@@ -376,7 +380,7 @@ label {
    h3 {
       font-size: 26px;
    }
-   button {
+   .btn {
       font-size: 24px;
    }
    .titulo {
@@ -460,7 +464,7 @@ label {
    justify-content: center;
    align-items: center;
    clip-path: circle(141.4% at 100% 0);
-   z-index: 10000;
+   z-index: 1009;
    transition: clip-path 0.9s ease-in-out;
 }
 .darkmode .loader{
