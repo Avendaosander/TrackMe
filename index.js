@@ -4,8 +4,8 @@ console.log("Bienvenido a TrackMe");
 const URL_API_IP = "https://api.ipify.org/?format=json";
 
 // APIs de https://geo.ipify.org/docs
-const URL_API_GEO ="https://geo.ipify.org/api/v2/country,city,vpn?apiKey=at_DL5bwsg9d1oydbAtuR1v131e9SAgP&ipAddress=";
-const URL_API_GEO_DOMAIN ="https://geo.ipify.org/api/v2/country,city,vpn?apiKey=at_DL5bwsg9d1oydbAtuR1v131e9SAgP&domain=";
+const URL_API_GEO ="https://geo.ipify.org/api/v2/country,city,vpn?apiKey=at_WpHYm7XeBlLfdPuYVz3s2AJ2HieMn&ipAddress=";
+const URL_API_GEO_DOMAIN ="https://geo.ipify.org/api/v2/country,city,vpn?apiKey=at_WpHYm7XeBlLfdPuYVz3s2AJ2HieMn&domain=";
 
 // Aqui se guarda la IP del usuario
 let IP = "";
